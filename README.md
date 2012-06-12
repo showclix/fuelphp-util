@@ -1,0 +1,4 @@
+Common
+======
+
+Framework independent commonalities.
