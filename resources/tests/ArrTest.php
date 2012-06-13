@@ -2,7 +2,7 @@
 
 use Fuel\Common\Arr;
 
-class ArrTests extends PHPUnit_Framework_TestCase
+class ArrTest extends PHPUnit_Framework_TestCase
 {
 	public static function personProvider()
 	{
@@ -390,29 +390,7 @@ class ArrTests extends PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * Tests Arr::average()
-	 *
-	 * @test
-	 */
-	public function testAverage()
-	{
-		$arr = array(13, 8, 6);
-		$this->assertEquals(9, Arr::average($arr));
-	}
-
-	/**
-	 * Tests Arr::average()
-	 *
-	 * @test
-	 */
-	public function testAverageOfEmptyArray()
-	{
-		$arr = array();
-		$this->assertEquals(0, Arr::average($arr));
-	}
-
-	/**
-	 * Tests Arr::filter_prefixed()
+	 * Tests Arr::filterPrefixed()
 	 *
 	 * @test
 	 */
@@ -556,30 +534,6 @@ class ArrTests extends PHPUnit_Framework_TestCase
 		$keys = array('epic', 'foo');
 		$this->assertEquals(Arr::filterKeys($data, $keys), $expected);
 		$this->assertEquals(Arr::filterKeys($data, $keys, true), $expected_remove);
-	}
-
-	/**
-	 * Tests Arr::toAssoc()
-	 *
-	 * @test
-	 */
-	public function testToAssocWithEvenNumberOfElements()
-	{
-		$arr = array('foo', 'bar', 'baz', 'yay');
-		$expected = array('foo' => 'bar', 'baz' => 'yay');
-		$this->assertEquals($expected, Arr::toAssoc($arr));
-	}
-
-	/**
-	 * Tests Arr::toAssoc()
-	 *
-	 * @test
-	 * @expectedException BadMethodCallException
-	 */
-	public function testToAssocWithOddNumberOfElements()
-	{
-		$arr = array('foo', 'bar', 'baz');
-		Arr::toAssoc($arr);
 	}
 
 	/**

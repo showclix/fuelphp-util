@@ -1,2 +1,14 @@
-fuel/app/logs/*/*/*
-fuel/app/cache/*/*
+*~
+*.bak
+Thumbs.db
+desktop.ini
+composer.lock
+.DS_Store
+.buildpath
+.project
+.settings
+.tmpoj
+.idea
+nbproject/
+vendor/*
+composer.*

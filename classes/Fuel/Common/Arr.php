@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Validation library
+ * Array library
  *
  * @package    Fuel\Validation
  * @version    1.0.0
@@ -54,7 +54,7 @@ abstract class Arr
 			{
 				if ( ! is_array($array) or ! array_key_exists($key_part, $array))
 				{
-					return static::prepDefaultValue($default);
+					return ($default instanceof Closure) ? $default() : $default;
 				}
 			}
 
@@ -235,34 +235,6 @@ abstract class Arr
 		}
 
 		return $output;
-	}
-
-	/**
-	 * Converts the given 1 dimensional non-associative array to an associative
-	 * array.
-	 *
-	 * The array given must have an even number of elements or null will be returned.
-	 *
-	 *     Arr::to_assoc(array('foo','bar'));
-	 *
-	 * @param   string      $arr  the array to change
-	 * @return  array|null  the new array or null
-	 * @throws  \BadMethodCallException
-	 */
-	public static function toAssoc($arr)
-	{
-		if (($count = count($arr)) % 2 > 0)
-		{
-			throw new \BadMethodCallException('Number of values in to_assoc must be even.');
-		}
-		$keys = $vals = array();
-
-		for ($i = 0; $i < $count - 1; $i += 2)
-		{
-			$keys[] = array_shift($arr);
-			$vals[] = array_shift($arr);
-		}
-		return array_combine($keys, $vals);
 	}
 
 	/**
@@ -596,23 +568,6 @@ abstract class Arr
 	}
 
 	/**
-	 * Find the average of an array
-	 *
-	 * @param   array    the array containing the values
-	 * @return  numeric  the average value
-	 */
-	public static function average($array)
-	{
-		// No arguments passed, lets not divide by 0
-		if ( ! ($count = count($array)) > 0)
-		{
-			return 0;
-		}
-
-		return (array_sum($array) / $count);
-	}
-
-	/**
 	 * Replaces key names in an array by names in $replace
 	 *
 	 * @param   array			the array containing the key/value combinations
@@ -750,18 +705,5 @@ abstract class Arr
 	{
 		$values = array_filter($arr, 'is_array');
 		return $all_keys ? count($arr) === count($values) : count($values) > 0;
-	}
-
-	/**
-	 * Takes a value and checks if it is a Closure or not, if it is it
-	 * will return the result of the closure, if not, it will simply return the
-	 * value.
-	 *
-	 * @param   mixed  $var  The value to get
-	 * @return  mixed
-	 */
-	protected static function prepDefaultValue($value)
-	{
-		return ($value instanceof Closure) ? $value() : $value;
 	}
 }
