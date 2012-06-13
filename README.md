@@ -1,5 +1,7 @@
 # Common
 
+[![Build Status](https://secure.travis-ci.org/fuelphp/common.png)](http://travis-ci.org/fuelphp/common)
+
 Framework independent commonalities.
 
 ## Contents
