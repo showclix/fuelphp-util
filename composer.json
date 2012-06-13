@@ -1,0 +1,11 @@
+{
+	"name": "fuel/common",
+	"type": "library",
+	"description": "Framework independent commonalities.",
+	"keywords": ["utilitites","array","numbers","inflector"],
+	"homepage": "http://fuelphp.com/",
+	"license": "MIT",
+	"autoload": {
+		"psr-0": { "Fuel\\Common": "classes/" }
+	}
+}
