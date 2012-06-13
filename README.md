@@ -7,9 +7,6 @@ Framework independent commonalities.
 ## Contents
 
 * __Fuel\Common\Arr__: Array handling made easy
-
-## More to come
-
 * __Fuel\Common\Str__: Common string function with mb_string detection.
 * __Fuel\Common\Num__: Handy number helpers.
 * __Fuel\Common\Html__: All you need for html generation, nothing more.
