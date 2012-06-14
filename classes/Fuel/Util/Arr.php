@@ -28,7 +28,7 @@ abstract class Arr
 	 */
 	public static function get($array, $key, $default = null)
 	{
-		if ( ! is_array($array) and ! $array instanceof \ArrayAccess)
+		if ( ! is_array($array) and ! $array instanceof ArrayAccess)
 		{
 			throw new InvalidArgumentException('First parameter must be an array or ArrayAccess object.');
 		}
@@ -48,17 +48,17 @@ abstract class Arr
 			return $return;
 		}
 
-		foreach (explode('.', $key) as $key_part)
+		foreach (explode('.', $key) as $keyPart)
 		{
-			if (($array instanceof \ArrayAccess and isset($array[$key_part])) === false)
+			if (($array instanceof \ArrayAccess and isset($array[$keyPart])) === false)
 			{
-				if ( ! is_array($array) or ! array_key_exists($key_part, $array))
+				if ( ! is_array($array) or ! array_key_exists($keyPart, $array))
 				{
 					return ($default instanceof Closure) ? $default() : $default;
 				}
 			}
 
-			$array = $array[$key_part];
+			$array = $array[$keyPart];
 		}
 
 		return $array;
@@ -150,14 +150,14 @@ abstract class Arr
 	 */
 	public static function keyExists($array, $key)
 	{
-		foreach (explode('.', $key) as $key_part)
+		foreach (explode('.', $key) as $keyPart)
 		{
-			if ( ! is_array($array) or ! array_key_exists($key_part, $array))
+			if ( ! is_array($array) or ! array_key_exists($keyPart, $array))
 			{
 				return false;
 			}
 
-			$array = $array[$key_part];
+			$array = $array[$keyPart];
 		}
 
 		return true;
@@ -187,23 +187,23 @@ abstract class Arr
 			return $return;
 		}
 
-		$key_parts = explode('.', $key);
+		$keyParts = explode('.', $key);
 
-		if ( ! is_array($array) or ! array_key_exists($key_parts[0], $array))
+		if ( ! is_array($array) or ! array_key_exists($keyParts[0], $array))
 		{
 			return false;
 		}
 
-		$this_key = array_shift($key_parts);
+		$thisKey = array_shift($keyParts);
 
-		if ( ! empty($key_parts))
+		if ( ! empty($keyParts))
 		{
-			$key = implode('.', $key_parts);
-			return static::delete($array[$this_key], $key);
+			$key = implode('.', $keyParts);
+			return static::delete($array[$thisKey], $key);
 		}
 		else
 		{
-			unset($array[$this_key]);
+			unset($array[$thisKey]);
 		}
 
 		return true;
@@ -213,12 +213,12 @@ abstract class Arr
 	 * Converts a multi-dimensional associative array into an array of key => values with the provided field names
 	 *
 	 * @param   array   $assoc      the array to convert
-	 * @param   string  $key_field  the field name of the key field
-	 * @param   string  $val_field  the field name of the value field
+	 * @param   string  $keyField  the field name of the key field
+	 * @param   string  $valField  the field name of the value field
 	 * @return  array
 	 * @throws  InvalidArgumentException
 	 */
-	public static function assocToKeyval($assoc, $key_field, $val_field)
+	public static function assocToKeyval($assoc, $keyField, $valField)
 	{
 		if ( ! is_array($assoc) or $assoc instanceof \Iterator)
 		{
@@ -228,9 +228,9 @@ abstract class Arr
 		$output = array();
 		foreach ($assoc as $row)
 		{
-			if (isset($row[$key_field]) and isset($row[$val_field]))
+			if (isset($row[$keyField]) and isset($row[$valField]))
 			{
-				$output[$row[$key_field]] = $row[$val_field];
+				$output[$row[$keyField]] = $row[$valField];
 			}
 		}
 
@@ -274,26 +274,26 @@ abstract class Arr
 	public static function flatten($array, $glue = ':', $reset = true, $indexed = true)
 	{
 		static $return = array();
-		static $curr_key = array();
+		static $currKey = array();
 
 		if ($reset)
 		{
 			$return = array();
-			$curr_key = array();
+			$currKey = array();
 		}
 
 		foreach ($array as $key => $val)
 		{
-			$curr_key[] = $key;
+			$currKey[] = $key;
 			if (is_array($val) and ($indexed or array_values($val) !== $val))
 			{
 				static::flattenAssoc($val, $glue, false);
 			}
 			else
 			{
-				$return[implode($glue, $curr_key)] = $val;
+				$return[implode($glue, $currKey)] = $val;
 			}
-			array_pop($curr_key);
+			array_pop($currKey);
 		}
 		return $return;
 	}
@@ -362,14 +362,14 @@ abstract class Arr
 	 * @param   bool    whether to remove the prefix.
 	 * @return  array
 	 */
-	public static function filterPrefixed($array, $prefix, $remove_prefix = true)
+	public static function filterPrefixed($array, $prefix, $removePrefix = true)
 	{
 		$return = array();
 		foreach ($array as $key => $val)
 		{
 			if (preg_match('/^'.$prefix.'/', $key))
 			{
-				if ($remove_prefix === true)
+				if ($removePrefix === true)
 				{
 					$key = preg_replace('/^'.$prefix.'/','',$key);
 				}
@@ -493,7 +493,7 @@ abstract class Arr
 	 * @param	int		The php sort type flag
 	 * @return	array
 	 */
-	public static function sort($array, $key, $order = 'asc', $sort_flags = SORT_REGULAR)
+	public static function sort($array, $key, $order = 'asc', $sortFlags = SORT_REGULAR)
 	{
 		if ( ! is_array($array))
 		{
@@ -513,11 +513,11 @@ abstract class Arr
 		switch ($order)
 		{
 			case 'asc':
-				asort($b, $sort_flags);
+				asort($b, $sortFlags);
 			break;
 
 			case 'desc':
-				arsort($b, $sort_flags);
+				arsort($b, $sortFlags);
 			break;
 
 			default:
@@ -538,9 +538,9 @@ abstract class Arr
 	 *
 	 * @param   array  $array        collection of arrays/objects to sort
 	 * @param   array  $conditions   sorting conditions
-	 * @param   bool   @ignore_case  wether to sort case insensitive
+	 * @param   bool   $ignoreCase  wether to sort case insensitive
 	 */
-	public static function multiSort($array, $conditions, $ignore_case = false)
+	public static function multiSort($array, $conditions, $ignoreCase = false)
 	{
 		$temp = array();
 		$keys = array_keys($conditions);
@@ -554,7 +554,7 @@ abstract class Arr
 		$args = array();
 		foreach ($keys as $key)
 		{
-			$args[] = $ignore_case ? array_map('strtolower', $temp[$key]) : $temp[$key];
+			$args[] = $ignoreCase ? array_map('strtolower', $temp[$key]) : $temp[$key];
 			foreach($conditions[$key] as $flag)
 			{
 				$args[] = $flag;
@@ -698,12 +698,12 @@ abstract class Arr
 	 * Checks if the given array is a multidimensional array.
 	 *
 	 * @param   array  $arr       the array to check
-	 * @param   array  $all_keys  if true, check that all elements are arrays
+	 * @param   array  $allKeys  if true, check that all elements are arrays
 	 * @return  bool   true if its a multidimensional array, false if not
 	 */
-	public static function isMulti($arr, $all_keys = false)
+	public static function isMulti($arr, $allKeys = false)
 	{
 		$values = array_filter($arr, 'is_array');
-		return $all_keys ? count($arr) === count($values) : count($values) > 0;
+		return $allKeys ? count($arr) === count($values) : count($values) > 0;
 	}
 }

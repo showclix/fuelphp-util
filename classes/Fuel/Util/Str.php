@@ -67,11 +67,11 @@ class Str
 			}
 		}
 
-		$new_string = static::sub($string, 0, $limit = min(static::length($string),  $limit + $offset));
-		$new_string .= (static::length($string) > $limit ? $continuation : '');
-		$new_string .= (count($tags = array_reverse($tags)) ? '</'.implode('></',$tags).'>' : '');
+		$newString = static::sub($string, 0, $limit = min(static::length($string),  $limit + $offset));
+		$newString .= (static::length($string) > $limit ? $continuation : '');
+		$newString .= (count($tags = array_reverse($tags)) ? '</'.implode('></',$tags).'>' : '');
 
-		return $new_string;
+		return $newString;
 	}
 
 	/**
