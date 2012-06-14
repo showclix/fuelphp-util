@@ -11,4 +11,4 @@ before_script:
 script: phpunit --coverage-text --configuration resources/tests/phpunit.xml
 
 notifications:
-  irc: "irc.freenode.org#symfony-cmf"
+  irc: "irc.freenode.org#fuelphp"
