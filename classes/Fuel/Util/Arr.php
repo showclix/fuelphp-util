@@ -9,7 +9,7 @@
  * @copyright  2010 - 2012 Fuel Development Team
  */
 
-namespace Fuel\Common;
+namespace Fuel\Util;
 
 use ArrayAccess;
 use Closure;

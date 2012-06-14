@@ -1,6 +1,6 @@
 <?php
 
-use Fuel\Common\Inflector;
+use Fuel\Util\Inflector;
 
 class InflectorTest extends PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Fuel\Common\Html;
+use Fuel\Util\Html;
 
 class HtmlTest extends PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-use Fuel\Common\Str;
+use Fuel\Util\Str;
 
 class StrTest extends PHPUnit_Framework_TestCase
 {

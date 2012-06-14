@@ -1,6 +1,6 @@
 <?php
 
-use Fuel\Common\Arr;
+use Fuel\Util\Arr;
 
 class ArrTest extends PHPUnit_Framework_TestCase
 {

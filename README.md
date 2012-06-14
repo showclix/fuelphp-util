@@ -1,8 +1,8 @@
 # Common
 
-[![Build Status](https://secure.travis-ci.org/fuelphp/common.png)](http://travis-ci.org/fuelphp/common)
+[![Build Status](https://secure.travis-ci.org/fuelphp/util.png)](http://travis-ci.org/fuelphp/util)
 
-Framework independent commonalities.
+Framework independent Unitities.
 
 ## Contents
 
