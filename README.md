@@ -1,4 +1,4 @@
-# Common
+# Util
 
 [![Build Status](https://secure.travis-ci.org/fuelphp/util.png)](http://travis-ci.org/fuelphp/util)
 
