@@ -14,12 +14,12 @@ namespace Fuel\Util;
 class Inflector
 {
 
-	protected static $uncountable_words = array(
+	protected static $uncountableWords = array(
 		'equipment', 'information', 'rice', 'money',
 		'species', 'series', 'fish', 'meta'
 	);
 
-	protected static $plural_rules = array(
+	protected static $pluralRules = array(
 		'/^(ox)$/i'                 => '\1\2en',     // ox
 		'/([m|l])ouse$/i'           => '\1ice',      // mouse, louse
 		'/(matr|vert|ind)ix|ex$/i'  => '\1ices',     // matrix, vertex, index
@@ -41,7 +41,7 @@ class Inflector
 		'/$/'                      => 's',
 	);
 
-	protected static $singular_rules = array(
+	protected static $singularRules = array(
 		'/(matr)ices$/i'         => '\1ix',
 		'/(vert|ind)ices$/i'     => '\1ex',
 		'/^(ox)en/i'             => '\1',
@@ -195,7 +195,7 @@ class Inflector
 			return $result;
 		}
 
-		foreach (static::$plural_rules as $rule => $replacement)
+		foreach (static::$pluralRules as $rule => $replacement)
 		{
 			if (preg_match($rule, $result))
 			{
@@ -222,7 +222,7 @@ class Inflector
 			return $result;
 		}
 
-		foreach (static::$singular_rules as $rule => $replacement)
+		foreach (static::$singularRules as $rule => $replacement)
 		{
 			if (preg_match($rule, $result))
 			{
@@ -239,22 +239,22 @@ class Inflector
 	 * a CamelCased string.
 	 *
 	 * @param   string  the underscored word
-	 * @return  string  the CamelCased version of $underscored_word
+	 * @return  string  the CamelCased version of $underscoredWord
 	 */
-	public static function camelize($underscored_word)
+	public static function camelize($underscoredWord)
 	{
-		return preg_replace('/(^|_)(.)/e', "strtoupper('\\2')", strval($underscored_word));
+		return preg_replace('/(^|_)(.)/e', "strtoupper('\\2')", strval($underscoredWord));
 	}
 
 	/**
 	 * Takes a CamelCased string and returns an underscore separated version.
 	 *
 	 * @param   string  the CamelCased word
-	 * @return  string  an underscore separated version of $camel_cased_word
+	 * @return  string  an underscore separated version of $camelCasedWord
 	 */
-	public static function underscore($camel_cased_word)
+	public static function underscore($camelCasedWord)
 	{
-		return Str::lower(preg_replace('/([A-Z]+)([A-Z])/', '\1_\2', preg_replace('/([a-z\d])([A-Z])/', '\1_\2', strval($camel_cased_word))));
+		return Str::lower(preg_replace('/([A-Z]+)([A-Z])/', '\1_\2', preg_replace('/([a-z\d])([A-Z])/', '\1_\2', strval($camelCasedWord))));
 	}
 
 	/**
@@ -338,14 +338,14 @@ class Inflector
 	 * @param   string  the class name
 	 * @return  string  the string without the namespace
 	 */
-	public static function denamespace($class_name)
+	public static function denamespace($className)
 	{
-		$class_name = trim($class_name, '\\');
-		if ($last_separator = strrpos($class_name, '\\'))
+		$className = trim($className, '\\');
+		if ($lastSeparator = strrpos($className, '\\'))
 		{
-			$class_name = substr($class_name, $last_separator + 1);
+			$className = substr($className, $lastSeparator + 1);
 		}
-		return $class_name;
+		return $className;
 	}
 
 	/**
@@ -354,12 +354,12 @@ class Inflector
 	 * @param   string  $class_name  the class name
 	 * @return  string  the string without the namespace
 	 */
-	public static function getNamespace($class_name)
+	public static function getNamespace($className)
 	{
-		$class_name = trim($class_name, '\\');
-		if ($last_separator = strrpos($class_name, '\\'))
+		$className = trim($className, '\\');
+		if ($lastSeparator = strrpos($className, '\\'))
 		{
-			return substr($class_name, 0, $last_separator + 1);
+			return substr($className, 0, $lastSeparator + 1);
 		}
 		return '';
 	}
@@ -371,10 +371,10 @@ class Inflector
 	 * @param   string  the table name
 	 * @return  string  the table name
 	 */
-	public static function tableize($class_name)
+	public static function tableize($className)
 	{
-		$class_name = static::denamespace($class_name);
-		return Str::lower(static::pluralize(static::underscore($class_name)));
+		$className = static::denamespace($className);
+		return Str::lower(static::pluralize(static::underscore($className)));
 	}
 
 	/**
@@ -384,7 +384,7 @@ class Inflector
 	 * @param   string  separator
 	 * @return  string
 	 */
-	public static function words_to_upper($class, $sep = '_')
+	public static function wordsToUpper($class, $sep = '_')
 	{
 		return str_replace(' ', $sep, ucwords(str_replace($sep, ' ', $class)));
 	}
@@ -396,10 +396,10 @@ class Inflector
 	 * @param   bool    whether to singularize the table name or not
 	 * @return  string  the class name
 	 */
-	public static function classify($name, $force_singular = true)
+	public static function classify($name, $forceSingular = true)
 	{
-		$class = ($force_singular) ? static::singularize($name) : $name;
-		return static::words_to_upper($class);
+		$class = ($forceSingular) ? static::singularize($name) : $name;
+		return static::wordsToUpper($class);
 	}
 
 	/**
@@ -409,10 +409,10 @@ class Inflector
 	 * @param   bool    $use_underscore	whether to use an underscore or not
 	 * @return  string  the foreign key
 	 */
-	public static function foreignKey($class_name, $use_underscore = true)
+	public static function foreignKey($className, $useUnderscore = true)
 	{
-		$class_name = static::denamespace(Str::lower($class_name));
-		return static::underscore($class_name).($use_underscore ? "_id" : "id");
+		$class_name = static::denamespace(Str::lower($className));
+		return static::underscore($className).($useUnderscore ? "_id" : "id");
 	}
 
 	/**
@@ -423,7 +423,7 @@ class Inflector
 	 */
 	public static function isCountable($word)
 	{
-		return ! (\in_array(Str::lower(Strval($word)), static::$uncountable_words));
+		return ! (in_array(Str::lower(Strval($word)), static::$uncountableWords));
 	}
 }
 

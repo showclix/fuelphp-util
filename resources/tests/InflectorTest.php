@@ -244,5 +244,17 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		$expected = "apples_and_oranges";
 		$this->assertEquals($expected, $output);
 	}
+
+	/**
+	 * Test for Inflector::wordsToUpper()
+	 *
+	 * @test
+	 */
+	public function testWordsToUpper()
+	{
+		$output = Inflector::wordsToUpper('apples_and_oranges');
+		$expected = 'Apples_And_Oranges';
+		$this->assertEquals($expected, $output);
+	}
 }
 
