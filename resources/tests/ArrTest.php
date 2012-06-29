@@ -403,6 +403,27 @@ class ArrTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests Arr::filterPrefixed()
+	 *
+	 * @test
+	 */
+	public function testRemovePrefixed()
+	{
+		$arr = array(
+			'foo' => 'bar',
+			'_foo' => 'remove this',
+			'bar' => 'foo',
+			'_bar' => 'remove this too',
+		);
+
+		$output = Arr::removePrefixed($arr, '_');
+		$this->assertEquals(array(
+			'foo' => 'bar',
+			'bar' => 'foo',
+		), $output);
+	}
+
+	/**
 	 * Tests Arr::sort()
 	 *
 	 * @test

@@ -365,6 +365,7 @@ abstract class Arr
 	public static function filterPrefixed($array, $prefix, $removePrefix = true)
 	{
 		$return = array();
+
 		foreach ($array as $key => $val)
 		{
 			if (preg_match('/^'.$prefix.'/', $key))
@@ -376,7 +377,28 @@ abstract class Arr
 				$return[$key] = $val;
 			}
 		}
+
 		return $return;
+	}
+
+	/**
+	 * Filters an array on prefixed associative keys.
+	 *
+	 * @param   array   the array to filter.
+	 * @param   string  prefix to filter on.
+	 * @return  array
+	 */
+	public static function removePrefixed($array, $prefix)
+	{
+		foreach ($array as $key => $val)
+		{
+			if (preg_match('/^'.$prefix.'/', $key))
+			{
+				unset($array[$key]);
+			}
+		}
+
+		return $array;
 	}
 
 	/**
