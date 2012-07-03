@@ -13,6 +13,55 @@ class StrTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function startEndProvider()
+	{
+		return array(array('this is a string'));
+	}
+
+	/**
+	 * Test for Str::startsWith()
+	 *
+	 * @test
+	 * @dataProvider startEndProvider
+	 */
+	public function testStartsWithMatch($str)
+	{
+		$this->assertEquals(true, Str::startsWith($str, 'this'));
+	}
+
+	/**
+	 * Test for Str::startsWith()
+	 *
+	 * @test
+	 * @dataProvider startEndProvider
+	 */
+	public function testStartsWithFailure($str)
+	{
+		$this->assertEquals(false, Str::startsWith($str, 'not this'));
+	}
+
+	/**
+	 * Test for Str::startsWith()
+	 *
+	 * @test
+	 * @dataProvider startEndProvider
+	 */
+	public function testStartsWithIgnoreCaseMatch($str)
+	{
+		$this->assertEquals(true, Str::startsWith($str, 'ThIs', true));
+	}
+
+	/**
+	 * Test for Str::startsWith()
+	 *
+	 * @test
+	 * @dataProvider startEndProvider
+	 */
+	public function testStartsWithIgnoreCaseFailure($str)
+	{
+		$this->assertEquals(false, Str::startsWith($str, 'Not ThIs', true));
+	}
+
 	/**
 	 * Test for Str::truncate()
 	 *

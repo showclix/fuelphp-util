@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit colors="true" stopOnFailure="false" bootstrap="../phphunitbootstrap.php">
+<phpunit colors="true" stopOnFailure="false" bootstrap="./phphunitbootstrap.php">
 	<testsuites>
 		<testsuite name="common">
 			<directory suffix=".php">./</directory>
