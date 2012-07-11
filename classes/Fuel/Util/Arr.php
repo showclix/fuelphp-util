@@ -521,9 +521,10 @@ abstract class Arr
 	 * @param   array        the original array (by reference)
 	 * @param   array|mixed  the value(s) to insert, if you want to insert an array it needs to be in an array itself
 	 * @param   string|int   the value after which to insert
+	 * @param   bool         wether the input is an associative array
 	 * @return  bool         false when value isn't found in the array, otherwise true
 	 */
-	public static function insertAfterValue(array &$original, $value, $search)
+	public static function insertAfterValue(array &$original, $value, $search, $isAssoc = false)
 	{
 		$key = array_search($search, $original);
 
@@ -532,7 +533,7 @@ abstract class Arr
 			return false;
 		}
 
-		return static::insertAfterKey($original, $value, $key);
+		return static::insertAfterKey($original, $value, $key, $isAssoc);
 	}
 
 	/**
@@ -541,9 +542,10 @@ abstract class Arr
 	 * @param   array        the original array (by reference)
 	 * @param   array|mixed  the value(s) to insert, if you want to insert an array it needs to be in an array itself
 	 * @param   string|int   the value after which to insert
+	 * @param   bool         wether the input is an associative array
 	 * @return  bool         false when value isn't found in the array, otherwise true
 	 */
-	public static function insertBeforeValue(array &$original, $value, $search)
+	public static function insertBeforeValue(array &$original, $value, $search, $isAssoc = false)
 	{
 		$key = array_search($search, $original);
 
@@ -552,7 +554,7 @@ abstract class Arr
 			return false;
 		}
 
-		return static::insertBeforeKey($original, $value, $key);
+		return static::insertBeforeKey($original, $value, $key, $isAssoc);
 	}
 
 	/**
