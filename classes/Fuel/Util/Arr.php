@@ -180,6 +180,7 @@ abstract class Arr
 		if (is_array($key))
 		{
 			$return = array();
+
 			foreach ($key as $k)
 			{
 				$return[$k] = static::delete($array, $k);
@@ -199,6 +200,7 @@ abstract class Arr
 		if ( ! empty($keyParts))
 		{
 			$key = implode('.', $keyParts);
+
 			return static::delete($array[$thisKey], $key);
 		}
 		else
@@ -226,6 +228,7 @@ abstract class Arr
 		}
 
 		$output = array();
+
 		foreach ($assoc as $row)
 		{
 			if (isset($row[$keyField]) and isset($row[$valField]))
@@ -251,6 +254,7 @@ abstract class Arr
 		}
 
 		$counter = 0;
+
 		foreach ($arr as $key => $unused)
 		{
 			if ( ! is_int($key) or $key !== $counter++)
@@ -285,6 +289,7 @@ abstract class Arr
 		foreach ($array as $key => $val)
 		{
 			$currKey[] = $key;
+
 			if (is_array($val) and ($indexed or array_values($val) !== $val))
 			{
 				static::flattenAssoc($val, $glue, false);
@@ -293,6 +298,7 @@ abstract class Arr
 			{
 				$return[implode($glue, $currKey)] = $val;
 			}
+
 			array_pop($currKey);
 		}
 		return $return;
@@ -329,14 +335,17 @@ abstract class Arr
 			{
 				$keys = explode($glue, $key);
 				$temp =& $return;
+
 				while (count($keys) > 1)
 				{
 					$key = array_shift($keys);
 					$key = is_numeric($key) ? (int) $key : $key;
+
 					if ( ! isset($temp[$key]) or ! is_array($temp[$key]))
 					{
 						$temp[$key] = array();
 					}
+
 					$temp =& $temp[$key];
 				}
 
@@ -626,6 +635,7 @@ abstract class Arr
 		}
 
 		$args = array();
+
 		foreach ($keys as $key)
 		{
 			$args[] = $ignoreCase ? array_map('strtolower', $temp[$key]) : $temp[$key];
@@ -636,8 +646,8 @@ abstract class Arr
 		}
 
 		$args[] = &$array;
-
 		call_user_func_array('array_multisort', $args);
+
 		return $array;
 	}
 
@@ -778,6 +788,7 @@ abstract class Arr
 	public static function isMulti($arr, $allKeys = false)
 	{
 		$values = array_filter($arr, 'is_array');
+
 		return $allKeys ? count($arr) === count($values) : count($values) > 0;
 	}
 }
