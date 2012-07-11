@@ -306,6 +306,32 @@ class ArrTest extends PHPUnit_Framework_TestCase
 	}
 
 	/**
+	 * Tests Arr::insertAssoc()
+	 *
+	 * @test
+	 */
+	public function testInsertAssoc()
+	{
+		$arr = array(
+			'one' => 1,
+			'two' => 2,
+			'four' => 4,
+		);
+
+		$expected = array(
+			'one' => 1,
+			'two' => 2,
+			'three' => 3,
+			'four' => 4,
+		);
+
+		$output = Arr::insertAssoc($arr, array('three' => 3), 2);
+
+		$this->assertEquals(true, $output);
+		$this->assertEquals($expected, $arr);
+	}
+
+	/**
 	 * Tests Arr::insert()
 	 *
 	 * @test
@@ -349,6 +375,56 @@ class ArrTest extends PHPUnit_Framework_TestCase
 
 		$this->assertTrue($output);
 		$this->assertEquals($expected, $people);
+	}
+
+	/**
+	 * Tests Arr::insertAfterKey()
+	 *
+	 * @test
+	 */
+	public function testInsertAfterKeyAssoc()
+	{
+		$arr = array(
+			'one' => 1,
+			'two' => 2,
+			'four' => 4,
+		);
+
+		$expected = array(
+			'one' => 1,
+			'two' => 2,
+			'three' => 3,
+			'four' => 4,
+		);
+		$output = Arr::insertAfterKey($arr, array('three' => 3), 'two', true);
+
+		$this->assertTrue($output);
+		$this->assertEquals($expected, $arr);
+	}
+
+	/**
+	 * Tests Arr::insertBeforeKey()
+	 *
+	 * @test
+	 */
+	public function testInsertBeforeKeyAssoc()
+	{
+		$arr = array(
+			'one' => 1,
+			'two' => 2,
+			'four' => 4,
+		);
+
+		$expected = array(
+			'one' => 1,
+			'two' => 2,
+			'three' => 3,
+			'four' => 4,
+		);
+		$output = Arr::insertBeforeKey($arr, array('three' => 3), 'four', true);
+
+		$this->assertTrue($output);
+		$this->assertEquals($expected, $arr);
 	}
 
 	/**
