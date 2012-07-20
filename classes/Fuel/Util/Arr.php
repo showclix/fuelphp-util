@@ -222,7 +222,7 @@ abstract class Arr
 	 */
 	public static function assocToKeyval($assoc, $keyField, $valField)
 	{
-		if ( ! is_array($assoc) or ! $assoc instanceof \Iterator)
+		if ( ! is_array($assoc) and ! $assoc instanceof \Iterator)
 		{
 			throw new InvalidArgumentException('The first parameter must be an array.');
 		}
