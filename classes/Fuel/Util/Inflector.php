@@ -15,8 +15,9 @@ class Inflector
 {
 
 	protected static $uncountableWords = array(
-		'equipment', 'information', 'rice', 'money',
-		'species', 'series', 'fish', 'meta', 'deer',
+		'equipment','information',	'rice',		'money',
+		'species', 	'series',		'fish', 	'meta',
+		'deer',
 	);
 
 	protected static $pluralRules = array(
