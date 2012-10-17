@@ -16,7 +16,7 @@ class Inflector
 
 	protected static $uncountableWords = array(
 		'equipment', 'information', 'rice', 'money',
-		'species', 'series', 'fish', 'meta'
+		'species', 'series', 'fish', 'meta', 'deer',
 	);
 
 	protected static $pluralRules = array(
@@ -32,6 +32,7 @@ class Inflector
 		'/(p)erson$/i'              => '\1eople',    // person, salesperson
 		'/(m)an$/i'                 => '\1en',       // man, woman, spokesman
 		'/(c)hild$/i'               => '\1hildren',  // child
+		'/(g)oose$/i'				=> '\1eese',	 // goose
 		'/(buffal|tomat)o$/i'       => '\1\2oes',    // buffalo, tomato
 		'/(bu|campu)s$/i'           => '\1\2ses',    // bus, campus
 		'/(alias|status|virus)$/i'  => '\1es',       // alias
@@ -67,10 +68,11 @@ class Inflector
 		'/(m)en$/i'              => '\1an',
 		'/(s)tatuses$/i'         => '\1\2tatus',
 		'/(c)hildren$/i'         => '\1\2hild',
+		'/(g)eese$/i'			 => '\1oose',
 		'/(n)ews$/i'             => '\1\2ews',
 		'/([^us])s$/i'           => '\1',
 	);
-	
+
 	protected static $ascii = array(
 		'/æ|ǽ/' => 'ae',
 		'/œ/' => 'oe',
@@ -232,6 +234,19 @@ class Inflector
 		}
 
 		return $result;
+	}
+
+	/**
+	* Returns a quantified statement with correct pluralization.
+	* For example, '1 person', '2 people'
+	*
+	* @param   integer  the number of items
+	* @param   string   the word to pluralize
+	* @param   string   the plural version of the second parameter, if you want to specify
+	*/
+	public static function quantify($number, $singular, $plural = null)
+	{
+		return $number . ' ' . ($number > 1 ? $singular : (!is_null($plural) ? $plural : static::pluralize($singular)));
 	}
 
 	/**
@@ -425,4 +440,34 @@ class Inflector
 	{
 		return ! (in_array(Str::lower(Strval($word)), static::$uncountableWords));
 	}
+
+	/**
+	* Returns a list in a human readable form
+	* IE: Coffee, tea and soda
+	*
+	* @param   array  a list of objects to print
+	* @param   string the conjunction to join the array with(and, or)
+	* @param   bool   whether or not to print a serial comma(, and)
+	*
+	*/
+	public static function readableList($list,$conjunction = 'and', $oxford_comma=true)
+    {
+        if(!is_array($list))
+        {
+        	return $list;
+        }
+
+        if(empty($list))
+        {
+        	return '';
+        }
+
+        $lastItem = array_pop($list);
+
+        if (!empty($list)) {
+            return trim(implode(', ', $list)) . (($oxford_comma || count($list)==1)?" ${conjunction} ":", ${conjunction} ") . $lastItem;
+        } else {
+            return $lastItem;
+        }
+    }
 }
