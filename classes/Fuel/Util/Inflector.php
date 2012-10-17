@@ -247,7 +247,7 @@ class Inflector
 	*/
 	public static function quantify($number, $singular, $plural = null)
 	{
-		return $number . ' ' . ($number > 1 ? $singular : (!is_null($plural) ? $plural : static::pluralize($singular)));
+		return $number . ' ' . ($number == 1 ? $singular : (!is_null($plural) ? $plural : static::pluralize($singular)));
 	}
 
 	/**
@@ -451,7 +451,7 @@ class Inflector
 	* @param   bool   whether or not to print a serial comma(, and)
 	*
 	*/
-	public static function readableList($list,$conjunction = 'and', $oxford_comma=true)
+	public static function readableList($list,$conjunction = 'and', $serial_comma=true)
     {
         if(!is_array($list))
         {
@@ -466,7 +466,7 @@ class Inflector
         $lastItem = array_pop($list);
 
         if (!empty($list)) {
-            return trim(implode(', ', $list)) . (($oxford_comma || count($list)==1)?" ${conjunction} ":", ${conjunction} ") . $lastItem;
+            return trim(implode(', ', $list)) . ((!$serial_comma || count($list)==1)?" ${conjunction} ":", ${conjunction} ") . $lastItem;
         } else {
             return $lastItem;
         }

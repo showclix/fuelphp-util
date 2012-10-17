@@ -43,6 +43,76 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('Foo', Inflector::ordinalize('Foo'));
 	}
 
+	public function quantifyProvider()
+	{
+		return array(
+			array(1,	'mouse',	null,	'1 mouse'),
+			array(0,	'mouse',	null,	'0 mice'),
+			array(2,	'goose',	null,	'2 geese'),
+			array(4,	'deer',		null,	'4 deer'),
+			array(5,	'deer',		'deers','5 deers'),
+		);
+	}
+
+	/**
+	* Test for Inflector::quantify
+	*
+	* @test
+	* @dataProvider quantifyProvider
+	*/
+	public function testQuantify($number, $word, $plword, $expected)
+	{
+		if($plword === null)
+		{
+			$p = Inflector::quantify($number,$word);
+		}
+		else
+		{
+			$p = Inflector::quantify($number,$word,$plword);
+		}
+		$this->assertEquals($expected, $p);
+	}
+
+	public function readableListProvider()
+	{
+		return array(
+			array(array('milk', 'eggs', 'sugar', 'flour','water'), null, null, 'milk, eggs, sugar, flour, and water'),
+			array(array('coffee', 'tea', 'juice'), 	null, 	null, 	'coffee, tea, and juice'),
+			array(array('coffee', 'tea', 'juice'), 	'or', 	null, 	'coffee, tea, or juice'),
+			array(array('coffee', 'tea', 'juice'), 	'or', 	true, 	'coffee, tea, or juice'),
+			array(array('coffee', 'tea', 'juice'), 	'or', 	false, 	'coffee, tea or juice'),
+			array(array('coffee', 'tea'), 			null, 	null, 	'coffee and tea'),
+			array(array('coffee', 'tea'), 			'and', 	true, 	'coffee and tea'),
+			array(array('coffee', 'tea'), 			'and', 	false, 	'coffee and tea'),
+			array(array('coffee'), 					null, 	null, 	'coffee'),
+			array(array('coffee'), 					'and', 	true, 	'coffee'),
+			array(array('coffee'), 					'and', 	false,	'coffee'),
+		);
+	}
+
+	/**
+	* Test for Inflector::quantify
+	*
+	* @test
+	* @dataProvider readableListProvider
+	*/
+	public function testReadableList($list,$conjunction,$comma,$expected)
+	{
+		if($comma === null)
+		{
+			if($conjunction === null)
+			{
+				$p = Inflector::readableList($list);
+			} else {
+				$p = Inflector::readableList($list,$conjunction);
+			}
+
+		} else {
+			$p = Inflector::readableList($list,$conjunction,$comma);
+		}
+		$this->assertEquals($expected, $p);
+	}
+
 	/**
 	 * Test for Inflector::ascii()
 	 *
