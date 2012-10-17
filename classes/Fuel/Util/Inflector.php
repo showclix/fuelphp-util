@@ -441,34 +441,4 @@ class Inflector
 	{
 		return ! (in_array(Str::lower(Strval($word)), static::$uncountableWords));
 	}
-
-	/**
-	* Returns a list in a human readable form
-	* IE: Coffee, tea and soda
-	*
-	* @param   array  a list of objects to print
-	* @param   string the conjunction to join the array with(and, or)
-	* @param   bool   whether or not to print a serial comma(, and)
-	*
-	*/
-	public static function readableList($list,$conjunction = 'and', $serial_comma=true)
-    {
-        if(!is_array($list))
-        {
-        	return $list;
-        }
-
-        if(empty($list))
-        {
-        	return '';
-        }
-
-        $lastItem = array_pop($list);
-
-        if (!empty($list)) {
-            return trim(implode(', ', $list)) . ((!$serial_comma || count($list)==1)?" ${conjunction} ":", ${conjunction} ") . $lastItem;
-        } else {
-            return $lastItem;
-        }
-    }
 }

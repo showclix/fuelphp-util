@@ -247,4 +247,44 @@ class StrTest extends PHPUnit_Framework_TestCase
 		$output = Str::random('nozero', 22);
 		$this->assertFalse(strpos($output, '0'));
 	}
+
+	public function readableListProvider()
+	{
+		return array(
+			array(array('milk', 'eggs', 'sugar', 'flour','water'), null, null, 'milk, eggs, sugar, flour, and water'),
+			array(array('coffee', 'tea', 'juice'), 	null, 	null, 	'coffee, tea, and juice'),
+			array(array('coffee', 'tea', 'juice'), 	'or', 	null, 	'coffee, tea, or juice'),
+			array(array('coffee', 'tea', 'juice'), 	'or', 	true, 	'coffee, tea, or juice'),
+			array(array('coffee', 'tea', 'juice'), 	'or', 	false, 	'coffee, tea or juice'),
+			array(array('coffee', 'tea'), 			null, 	null, 	'coffee and tea'),
+			array(array('coffee', 'tea'), 			'and', 	true, 	'coffee and tea'),
+			array(array('coffee', 'tea'), 			'and', 	false, 	'coffee and tea'),
+			array(array('coffee'), 					null, 	null, 	'coffee'),
+			array(array('coffee'), 					'and', 	true, 	'coffee'),
+			array(array('coffee'), 					'and', 	false,	'coffee'),
+		);
+	}
+
+	/**
+	* Test for Str::quantify
+	*
+	* @test
+	* @dataProvider readableListProvider
+	*/
+	public function testReadableList($list,$conjunction,$comma,$expected)
+	{
+		if($comma === null)
+		{
+			if($conjunction === null)
+			{
+				$p = Str::readableList($list);
+			} else {
+				$p = Str::readableList($list,$conjunction);
+			}
+
+		} else {
+			$p = Str::readableList($list,$conjunction,$comma);
+		}
+		$this->assertEquals($expected, $p);
+	}
 }
