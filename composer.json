@@ -1,5 +1,5 @@
 {
-	"name": "showclix/fuelphp-util",
+	"name": "fuel/util",
 	"type": "library",
 	"description": "Framework independent utilities.",
 	"keywords": ["utilitites","array","numbers","inflector","strings"],
