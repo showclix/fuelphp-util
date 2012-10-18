@@ -47,7 +47,7 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 	{
 		return array(
 			array(1,	'mouse',	null,	'1 mouse'),
-			array(0,	'mouse',	null,	'0 mice'),
+			array('00',	'mouse',	null,	'no mice'),
 			array(2,	'goose',	null,	'2 geese'),
 			array(4,	'deer',		null,	'4 deer'),
 			array(5,	'deer',		'deers','5 deers'),

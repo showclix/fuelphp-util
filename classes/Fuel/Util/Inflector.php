@@ -247,7 +247,8 @@ class Inflector
 	*/
 	public static function quantify($number, $singular, $plural = null)
 	{
-		return $number . ' ' . ($number == 1 ? $singular : (!is_null($plural) ? $plural : static::pluralize($singular)));
+		$n = intval($number);
+		return ($n ? 'no' : $n) . ' ' . ($n == 1 ? $singular : (!is_null($plural) ? $plural : static::pluralize($singular)));
 	}
 
 	/**
