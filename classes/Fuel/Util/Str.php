@@ -248,7 +248,7 @@ class Str
 	  * @param   int     the number of characters
 	  * @return  string  the random string
 	  */
-	public static function random($type = 'alnum', $length = 16)
+	public static function random($type = 'alnum', $length = 16, $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 	{
 		switch($type)
 		{
@@ -263,6 +263,7 @@ class Str
 			case 'alpha':
 			case 'distinct':
 			case 'hexdec':
+			case 'pool':
 				switch ($type)
 				{
 					case 'alpha':
@@ -288,6 +289,9 @@ class Str
 
 					case 'hexdec':
 						$pool = '0123456789abcdef';
+						break;
+
+					case 'pool':
 						break;
 				}
 

@@ -248,7 +248,7 @@ class Inflector
 	public static function quantify($number, $singular, $plural = null)
 	{
 		$n = intval($number);
-		return ($n ? $n : 'no') . ' ' . ($n == 1 ? $singular : (!is_null($plural) ? $plural : static::pluralize($singular)));
+		return ($n ? $n : 'no') . ' ' . static::conditionalPluralize($singular,$n,$plural);
 	}
 
 	/**
@@ -441,5 +441,10 @@ class Inflector
 	public static function isCountable($word)
 	{
 		return ! (in_array(Str::lower(Strval($word)), static::$uncountableWords));
+	}
+
+	public static function conditionalPluralize($singular, $number, $plural = null) {
+		$n = intval($number);
+		return $n == 1 ? $singular : (!is_null($plural) ? $plural : static::pluralize($singular));
 	}
 }

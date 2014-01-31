@@ -73,6 +73,37 @@ class InflectorTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($expected, $p);
 	}
 
+	public function conditionalPluralizeProvider()
+	{
+		return array(
+			array('mouse',	0,	null,	'mice'),
+			array('mouse',	1,	null,	'mouse'),
+			array('mouse',	2,	null,	'mice'),
+			array('deer',	1,	null,	'deer'),
+			array('deer',	2,	null,	'deer'),
+			array('deer',	2,	'deers','deers'),
+		);
+	}
+
+	/**
+	* Test for Inflector::quantify
+	*
+	* @test
+	* @dataProvider quantifyProvider
+	*/
+	public function testConditionalPluralize($word, $number, $plword, $expected)
+	{
+		if($plword === null)
+		{
+			$p = Inflector::conditionalPluralize($word,$number);
+		}
+		else
+		{
+			$p = Inflector::conditionalPluralize($word,$number,$plword);
+		}
+		$this->assertEquals($expected, $p);
+	}
+
 	/**
 	 * Test for Inflector::ascii()
 	 *
