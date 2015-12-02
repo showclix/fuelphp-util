@@ -291,6 +291,9 @@ class Str
 						$pool = '0123456789abcdef';
 						break;
 
+					case 'sqlinjection':
+						$pool = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\0\r\t\n'\"%\\";
+						break;
 					case 'pool':
 						break;
 				}
